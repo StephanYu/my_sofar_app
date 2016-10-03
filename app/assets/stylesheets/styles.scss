@@ -1,0 +1,12 @@
+// Place all the styles related to the Songs controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.navbar {
+  height: 90px;
+}
+
+.col-md-4:nth-child(3n+1) {
+  clear: left;
+}
+

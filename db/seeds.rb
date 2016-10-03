@@ -1,8 +1,36 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
 
+videos    = AWS.download "video_data.json"
+api_key   = ENV["youtube_api_key"]
+fields    = "items(id,snippet(thumbnails))"
+part      = "snippet"
+binding.pry
+
+videos.map do |video|
+  video_uid         = video['video_uid']
+  youtube_video     = FetchVideoService.new(video_uid, api_key, fields, part).videos.first
+  thumbnail_url     = youtube_video["snippet"]["thumbnails"]["medium"]["url"]
+
+  if video['song'].present?
+    song_uid        = video['song']['id']
+    song_artist_uid = video['song']['artist_id']
+    song_title      = video['song']['title']
+    song_slug       = video['song']['cached_slug']
+    song_city_uid   = video['song']['city_id']
+  end
+  
+  if video['artist'].present?
+    artist_title    = video['artist']['title']
+    artist_slug     = video['artist']['cached_slug']
+  end
+
+  if video['city'].present?
+    city_title      = video['city']['title']
+    city_slug       = video['city']['cached_slug']
+  end
+
+  
+  Artist.create(artist_uid: song_artist_uid, title: artist_title, cached_slug: artist_slug)
+  City.create(city_uid: song_city_uid, title: city_title, cached_slug: city_slug)
+  Song.create(song_uid: song_uid, artist_id: song_artist_uid, title: song_title, cached_slug: song_slug, city_id: song_city_uid)
+  Video.create(video_uid: video_uid, thumb_url: thumbnail_url, song_id: song_uid)
+end
