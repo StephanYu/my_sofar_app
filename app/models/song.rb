@@ -1,9 +1,9 @@
 class Song < ApplicationRecord
   belongs_to :artist
   belongs_to :city
-  belongs_to :video
+  has_one :video
 
-  validates_presence_of   :song_uid
-  validates_presence_of   :title
+  validates :song_uid, presence: true
+  validates :title, presence: true
   validates_uniqueness_of :song_uid
 end
