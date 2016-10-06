@@ -16,6 +16,7 @@ gem 'httparty'
 gem 'figaro'
 gem 'will_paginate'
 gem 'will_paginate-bootstrap'
+gem 'active_decorator'
 
 group :development, :test do
   gem 'pry-byebug'
