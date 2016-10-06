@@ -1,16 +1,15 @@
-<h3>This is the show page</h3>
 <div class="container">
   <div class="row">
     <div class="col-md-8">
-      <iframe width="560" height="315" src="https://www.youtube.com/embed/#{@video.video_uid}" frameborder="0" allowfullscreen></iframe>
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/<%= @video.video_uid %>" frameborder="0" allowfullscreen></iframe>
     </div>
     <div class="col-md-4">
       <div class="row">
-        <h3><%= @video.title %></h3>
+        <h3><%= @video.song.title %></h3>
       </div>
       <div class="row">
-        <p>Artist: <%= @video.artist.title %></p>
-        <p>Location: <%= @video.city.title %></p>
+        <p>Artist: <%= @video.song.artist.title %></p>
+        <p>Location: <%= @video.song.city.title %></p>
       </div>
       <div class="row">
         <p>Views: <%= @video_stats['viewCount'] %></p>
