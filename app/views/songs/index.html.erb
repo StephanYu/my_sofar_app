@@ -1,18 +1,20 @@
 
 <div class="container">
   <div class="row">
-    <% @videos.each do |video| %>
-      <div class="col-md-4">
-        <div class="thumbnail">
-          <% if video.song_id.present? %>
-            <%= link_to song_path(video.song_id) do %>
+    <% @videos.in_groups_of(3) do |group| %>
+      <% group.each do |video| %>
+        <div class="col-md-4">
+          <div class="thumbnail">
+            <% if video.song_id.present? %>
+              <%= link_to song_path(video.song_id) do %>
+                <img src="<%= video.thumb_url %>" alt="A video thumbnail" height="280" width="320">
+              <% end %>
+            <% else %>
               <img src="<%= video.thumb_url %>" alt="A video thumbnail" height="280" width="320">
             <% end %>
-          <% else %>
-            <img src="<%= video.thumb_url %>" alt="A video thumbnail" height="280" width="320">
-          <% end %>
+          </div>
         </div>
-      </div>
+      <% end %>
     <% end %>
   </div>
   <div class="row">
