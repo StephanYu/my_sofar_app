@@ -1,7 +1,7 @@
 class SongsController < ApplicationController
 
   def index
-    @videos = Video.includes(:songs).all
+    @videos = Video.includes(:song).all.paginate(:page => params[:page], :per_page => 12)
   end
 
   def show
@@ -15,16 +15,12 @@ class SongsController < ApplicationController
       video_uid  = @video.video_uid
       api_key    = ENV["youtube_api_key"]
       part       = "statistics"
-      video      = FetchVideoService.new(video_uid, api_key, fields, part).videos.first
+      video      = FetchVideoService.new(video_uid, api_key, nil, part).videos.first
 
       statistics = video["statistics"]
     end
 
     def set_video
-      @video = Song.find(song_params).video
-    end
-
-    def song_params
-      params.require(:song).permit(:song_uid)
+      @video = Song.find(params[:id]).video
     end
 end

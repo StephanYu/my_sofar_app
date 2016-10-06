@@ -14,6 +14,8 @@ gem 'jbuilder', '~> 2.5'
 gem 'friendly_id', '~> 5.1'
 gem 'httparty'
 gem 'figaro'
+gem 'will_paginate'
+gem 'will_paginate-bootstrap'
 
 group :development, :test do
   gem 'pry-byebug'
