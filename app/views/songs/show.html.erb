@@ -1,22 +1,22 @@
 <div class="container">
   <div class="row">
     <div class="col-md-8">
-      <iframe width="560" height="315" src="https://www.youtube.com/embed/<%= @video.video_uid %>" frameborder="0" allowfullscreen></iframe>
+      <iframe id="embed_video" width="560" height="315" src="https://www.youtube.com/embed/<%= video.video_uid %>" frameborder="0" allowfullscreen></iframe>
     </div>
     <div class="col-md-4">
       <div class="row">
-        <h3><%= @video.song.title %></h3>
+        <h3 id="song_title"><%= video.song_title %></h3>
       </div>
       <div class="row">
-        <p>Artist: <%= @video.song.artist.title %></p>
-        <p>Location: <%= @video.song.city.title %></p>
+        <p id="artist_title">Artist: <%= video.artist_title %></p>
+        <p id="city_title">Location: <%= video.city_title %></p>
       </div>
       <div class="row">
-        <p>Views: <%= @video_stats['viewCount'] %></p>
-        <p>Likes: <%= @video_stats['likeCount'] %></p>
-        <p>Dislikes: <%= @video_stats['dislikeCount'] %></p>
-        <p>Favourites: <%= @video_stats['favoriteCount'] %></p>
-        <p>Comments: <%= @video_stats['commentCount'] %></p>
+        <p id="video_views">Views: <%= video_views %></p>
+        <p id="video_likes">Likes: <%= video_likes %></p>
+        <p id="video_dislikes">Dislikes: <%= video_dislikes %></p>
+        <p id="video_favorites">Favourites: <%= video_favorites %></p>
+        <p id="video_comments">Comments: <%= video_comments %></p>
       </div>
     </div>
   </div>
