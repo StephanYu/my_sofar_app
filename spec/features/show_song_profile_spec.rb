@@ -2,6 +2,7 @@ require "rails_helper"
 
 feature "Show profile of a song" do
   scenario "visitor sees song profile when clicking on video thumbnail" do
+    expect(FetchVideoService).to receive(:method).and_return('view stats')
     #fabricate song 
     song = Fabricate(:song)
 
@@ -17,14 +18,14 @@ feature "Show profile of a song" do
     expect(page).to have_current_path('song/cached_slug')
 
     # expect song content to be displayed on page 
-    expect(find('#embed_video').to have_content('Something')
-    expect(find('#song_title').to have_content('Song Title')
-    expect(find('#artist_title').to have_content('Artist Title')
-    expect(find('#city_title').to have_content('City Title')
-    expect(find('#video_views').to have_content('Video views')
-    expect(find('#video_likes').to have_content('Video likes')
-    expect(find('#video_dislikes').to have_content('Video dislikes')
-    expect(find('#video_favorites').to have_content('Video favorites')
-    expect(find('#video_comments').to have_content('Video comments')
+    expect(find('*[data-test-id='myobj'])).to have_content('Something')
+    expect(find('#song_title')).to have_content('Song Title')
+    expect(find('#artist_title')).to have_content('Artist Title')
+    expect(find('#city_title')).to have_content('City Title')
+    expect(find('#video_views')).to have_content('Video views')
+    expect(find('#video_likes')).to have_content('Video likes')
+    expect(find('#video_dislikes')).to have_content('Video dislikes')
+    expect(find('#video_favorites')).to have_content('Video favorites')
+    expect(find('#video_comments')).to have_content('Video comments')
   end
 end

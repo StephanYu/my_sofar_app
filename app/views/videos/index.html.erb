@@ -1,13 +1,13 @@
 
 <div class="container">
   <div class="row">
-    <% @videos.in_groups_of(3) do |group| %>
+    <% @videos.in_groups_of(3, false) do |group| %>
       <% group.each do |video| %>
         <div class="col-md-4">
           <div class="thumbnail">
-            <% if video.song_present? %>
-              <%= link_to song_path(video.song_id), class: 'video_link' do %>
-                <% if video.thumb_present? %>
+            <% if video.song.present? %>
+              <%= link_to video_path(id: video.id, cached_slug: video.song.cached_slug), class: 'video_link' do %>
+                <% if video.thumb.present? %>
                   <%= image_tag("#{video.thumb_url}", height: '280', width: '320', alt: 'a video link') %>
                 <% else %>
                   <%= image_tag("no_image.png", height: '280', width: '320', alt: 'an image placeholder') %>

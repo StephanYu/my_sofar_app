@@ -1,0 +1,23 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-8">
+      <iframe id="embed_video" width="560" height="315" src="https://www.youtube.com/embed/<%= @video.video_uid %>" frameborder="0" allowfullscreen></iframe>
+    </div>
+    <div class="col-md-4">
+      <div class="row">
+        <h3 id="song_title"><%= @video.song_title %></h3>
+      </div>
+      <div class="row">
+        <p id="artist_title">Artist: <%= @video.artist_title %></p>
+        <p id="city_title">Location: <%= @video.city_title %></p>
+      </div>
+      <div class="row">
+        <p id="video_views">Views: <%= @video_views %></p>
+        <p id="video_likes">Likes: <%= @video_likes %></p>
+        <p id="video_dislikes" data-test-id="">Dislikes: <%= @video_dislikes %></p>
+        <p id="video_favorites">Favourites: <%= @video_favorites %></p>
+        <p id="video_comments">Comments: <%= @video_comments %></p>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
   
-  root 'songs#index'
-
-  resources :songs, only: [:index, :show]
+  root 'videos#index'
+  get 'videos/:id/:cached_slug', to: 'videos#show', as: 'video'
 
 end

@@ -1,12 +1,16 @@
 require "rails_helper"
 require "video_parser_service"
 
-describe VideoParserService do 
-  describe '.get_videos' do 
-    it 'fetches video data from AWS' do 
-      let(:video_json_file) { }
-      response = VideoParserService.get_videos(video_json_file)
-      expect(response).to eq(video_json_file)
+describe VideoParserService do
+  describe '.parse' do 
+    context 'available in data file' do 
+      it 'declares variables for all resources'
+    end
+
+    context 'resource already present in db' do 
+      it 'does not create a new entry' do 
+
+      end
     end
   end
 
@@ -17,18 +21,18 @@ describe VideoParserService do
       fields    = "items(id,snippet(thumbnails))"
       part      = "snippet"
     end
-  
-    it "fetches the video's thumbnail url from an API" do 
-      response = VideoParserService.get_thumbnail(video)
-      expect(response).to eq(video.thumb_url)
-    end
+    context 'the video file has a thumbnail url' do 
+      it "sets the thumbnail url" do 
+        response = VideoParserService.get_thumbnail(video)
+        expect(response).to eq(video.thumb_url)
+      end
 
-    it "only returns a url when it is present" do 
+      it "returns a url" do 
+
+      end
+    end
+    context 'the video file has no thumbnail' do 
 
     end
   end
-
-  it 'sets all variables from the song, artist, and city keys if present'
-  it 'checks to see if the new entry into the db is unique'
-  it 'saves the artist, city, song, and video to the database'
 end
