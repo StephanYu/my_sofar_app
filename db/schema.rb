@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(version: 20161003145608) do
     t.integer  "artist_id"
     t.integer  "song_uid"
     t.string   "title"
+    t.text     "description"
     t.string   "cached_slug"
     t.integer  "city_id"
     t.datetime "created_at",  null: false
@@ -45,6 +46,8 @@ ActiveRecord::Schema.define(version: 20161003145608) do
 
   create_table "videos", force: :cascade do |t|
     t.string   "video_uid"
+    t.string   "title"
+    t.string   "published_at"
     t.text     "thumb_url"
     t.integer  "song_id"
     t.datetime "created_at", null: false

@@ -1,17 +1,21 @@
 
-videos    = AWS.download "video_data.json"
-api_key   = ENV["youtube_api_key"]
-fields    = "items(id,snippet(thumbnails))"
-part      = "snippet"
+videos    = AWS.download 'video_data.json'
+api_key   = ENV['youtube_api_key']
+fields    = 'items(id,snippet(publishedAt,description,title,thumbnails))'
+part      = 'snippet'
 
-videos.all.map do |video|
+videos.sample(100).map do |video|
   video_uid         = video['video_uid']
   youtube_video     = FetchVideoService.new(video_uid, api_key, fields, part).videos.first 
-  thumbnail_url     = youtube_video["snippet"]["thumbnails"]["medium"]["url"] if youtube_video.present?
+  thumbnail_url     = youtube_video['snippet']['thumbnails']['medium']['url'] if youtube_video.present?
   
 
   if video['song'].present?
     song   = video['song']
+    if youtube_video.present?
+      youtube_description = youtube_video['snippet']['description'] 
+      youtube_published_at = youtube_video['snippet']['publishedAt'] 
+    end
     artist = song['artist']
     city   = song['city']
 
@@ -30,6 +34,12 @@ videos.all.map do |video|
       city_title    = city['title']
       city_slug     = city['cached_slug']
     end
+  else
+    if youtube_video.present?
+      youtube_title = youtube_video['snippet']['title']
+      youtube_description = youtube_video['snippet']['description']
+      youtube_published_at = youtube_video['snippet']['publishedAt']
+    end 
   end
   
 
@@ -55,6 +65,7 @@ videos.all.map do |video|
       song_uid:    song_uid, 
       artist_id:   artist.id, 
       title:       song_title, 
+      description: youtube_description,
       cached_slug: song_slug, 
       city_id:     city.id)
   end
@@ -62,7 +73,9 @@ videos.all.map do |video|
   video = Video.find_by(video_uid: video_uid)
   if video.nil?
     Video.create(
-      video_uid:   video_uid, 
+      video_uid:   video_uid,
+      title:       youtube_title,
+      published_at: youtube_published_at,
       thumb_url:   thumbnail_url, 
       song_id:     song.id)
   end
