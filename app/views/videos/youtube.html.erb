@@ -5,15 +5,13 @@
     </div>
     <div class="col-md-4">
       <div class="row">
-        <h3 data-test-id="song_title"><%= @video.song_title %></h3>
+        <h3 data-test-id="song_title"><%= @video_title %></h3>
       </div>
       <div class="row">
-        <%= render 'video_profile' %>
-      </div>
-      <div class="row">
+        <p data-test-id="video_published_at">
+          Published: <%= @video_published_at %>
+        </p>
         <%= render 'video_statistics' %>
-      </div>
-      <div class="row">
         <%= render 'video_description' %>
       </div>
     </div>

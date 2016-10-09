@@ -15,7 +15,7 @@ class VideoImporterService
 
   private
     def get_thumbnail(video)
-      video["snippet"]["thumbnails"]["medium"]["url"] if video.present?
+      video['snippet']['thumbnails']['medium']['url'] if video.present?
     end
 
     def build_song(song_hash)

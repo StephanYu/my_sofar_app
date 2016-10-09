@@ -5,17 +5,7 @@
       <% group.each do |video| %>
         <div class="col-md-4">
           <div class="thumbnail">
-            <% if video.song.present? %>
-              <%= link_to video_path(id: video.id, cached_slug: video.song.cached_slug), class: 'video_link' do %>
-                <% if video.thumb.present? %>
-                  <%= image_tag("#{video.thumb_url}", height: '280', width: '320', alt: 'a video link') %>
-                <% else %>
-                  <%= image_tag("no_image.png", height: '280', width: '320', alt: 'an image placeholder') %>
-                <% end %>
-              <% end %>
-            <% else %>
-              <%= image_tag("#{video.thumb_url}", height: '280', width: '320', alt: 'a video thumbnail') %>
-            <% end %>
+            <%= video.thumbnail %>
           </div>
         </div>
       <% end %>

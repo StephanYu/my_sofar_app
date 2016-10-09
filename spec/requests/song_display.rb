@@ -1,7 +1,7 @@
-require "rails_helper"
+require 'rails_helper'
 
-describe "Display of songs" do
-  it "shows all songs to songs#index" do
+describe 'Display of songs' do
+  it 'shows all songs to songs#index' do
     get songs_path
     expect(response).to render_template(:index)
   end

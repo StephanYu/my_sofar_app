@@ -8,6 +8,6 @@ class FetchVideoService
   end
 
   def videos
-    self.class.get("/v3/videos", @options)["items"]
+    self.class.get('/v3/videos', @options)['items']
   end
 end

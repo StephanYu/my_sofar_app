@@ -11,21 +11,20 @@ module VideoDecorator
   def city_title
     song.city.title
   end
-
-  #replace if else conditional block in index page 
-  #if song present -> show link_to/tag
-    # if thumb url present -> show image_tag
-    # else show default image_tag
-  #else show image_tag
-  def video_thumbnail
-    if song.present?
-      if thumb.present?
-        link_to image_tag("#{video.thumb_url}"), {action: 'show', controller: 'videos'}, {height: '280', width: '320', alt: 'a video link', class: 'a class'}
-      else
-
+  
+  def thumbnail
+    if song.present? && thumb_url.present?
+      link_to video_path(id: id, cached_slug: song.cached_slug), class: 'video_link' do
+        image_tag("#{thumb_url}", height: '280', width: '320', alt: 'a video link')
+      end
+    elsif song.present?
+      link_to video_path(id: id, cached_slug: song.cached_slug), class: 'video_link' do
+          image_tag("no_image.png", height: '280', width: '320', alt: 'an image placeholder')
       end
     else
-
+      link_to youtube_path(id: id), class: 'video_link' do
+        image_tag("#{thumb_url}", height: '280', width: '320', alt: 'a video link')
+      end
     end
   end
 end

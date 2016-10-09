@@ -1,7 +1,7 @@
-require "rails_helper"
+require 'rails_helper'
 
-feature "Show profile of a song" do
-  scenario "visitor sees song profile when clicking on video thumbnail" do
+feature 'Show profile of a song' do
+  scenario 'visitor sees song profile when clicking on video thumbnail' do
     expect(FetchVideoService).to receive(:method).and_return('view stats')
     #fabricate song 
     song = Fabricate(:song)
@@ -10,7 +10,7 @@ feature "Show profile of a song" do
     visit root_path
 
     # click on a thumbnail with class video_link
-    find(:css, "video_link").click
+    find(:css, 'video_link').click
     find(a.video_link).click
 
     # expect to go to the show song profile page and see the video uid in the url OR the cached slug
