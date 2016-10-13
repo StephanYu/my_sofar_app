@@ -6,19 +6,18 @@ class VideoImporterService
   end
 
   def process(videos, api_key, fields, part)
-    videos.all.map do |video|
+    # TODO: change back to videos.all once testing is complete
+    videos.sample(100).map do |video|
       video_uid      = video['video_uid']
       youtube_video  = FetchVideoService.new(video_uid, api_key, fields, part).videos.first 
       thumbnail_url  = get_thumbnail(youtube_video)
 
       create_video(video)
-
-      #todo: persist to database if not already existent
-
     end
   end
 
   private
+  # TODO: set correct variables for Song, Artist, City
   
   def get_thumbnail(video)
     video['snippet']['thumbnails']['medium']['url'] if video.present?
@@ -28,48 +27,34 @@ class VideoImporterService
     song = Song.find_by(song_uid: song_hash['id'])
     return song unless song.nil?
     Song.new(
-        song_uid:    song_uid, 
-        artist:   build_artist(song_hash['artist']), 
-        title:       song_title, 
-        cached_slug: song_slug, 
-        city:     build_city(song_hash['city']))
-    end
+      song_uid:    song_uid, 
+      artist:      build_artist(song_hash['artist']), 
+      title:       song_title, 
+      cached_slug: song_slug, 
+      city:        build_city(song_hash['city']))
   end
 
-  def build_artist(uid)
-
+  def build_artist(artist_hash)
+    artist = Artist.find_by(artist_uid: artist_hash['id'])
+    return artist unless artist.nil?
+    Artist.new(
+      artist_uid:  song_artist_uid, 
+      title:       artist_title, 
+      cached_slug: artist_slug)
   end
 
-  def build_city(uid)
-
+  def build_city(city_hash)
+    city = City.find_by(city_uid: city_hash['id'])
+    return city unless city.nil?
+    City.new(
+      city_uid:    song_city_uid, 
+      title:       city_title, 
+      cached_slug: city_slug)
   end
 
   def create_video(video)
-    # create Video object
     video_obj = Video.new
     video_obj.song = build_song(video['song'])
-    # Video.save
-
-    if video['song'].present?
-      song   = video['song']
-      artist = song['artist']
-      city   = song['city']
-
-      song_uid        = song['id']
-      song_artist_uid = song['artist_id']
-      song_title      = song['title']
-      song_slug       = song['cached_slug']
-      song_city_uid   = song['city_id']
-
-      if artist.present?
-        artist_title  = artist['title']
-        artist_slug   = artist['cached_slug']
-      end
-
-      if city.present?
-        city_title    = city['title']
-        city_slug     = city['cached_slug']
-      end
-    end
+    video_obj.save
   end
 end
